@@ -81,7 +81,9 @@ class DeepUNet(nn.Module):
         
         return layers 
         
-
+    def _attention_blocks(self): 
+        layers = nn.ModuleList()
+        layers.append()
 class DeepUNetDownSample(nn.Module):
     def __init__(self, in_channels, out_channels, bias=True):
         super(DeepUNetDownSample, self).__init__()
