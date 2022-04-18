@@ -1,10 +1,15 @@
-import enum
 import torch 
 import numpy as np 
 from torchvision import transforms 
 from PIL import Image 
 import colorgram 
 
+def get_rgb(colorgram_result):
+    """
+    from colorgram_result, result rgb value as tuple of (r,g,b)
+    """
+    color = colorgram_result.rgb
+    return (color.r, color.g, color.b)
 
 def crop_region(image):
     """
@@ -23,7 +28,16 @@ def crop_region(image):
     return (image1, image2, image3, image4)
 
 def img2colorinfo(img_path: str):
-    pass 
+    img = Image.open(img_path).convert("RGB")
+    img = transforms.Resize((512, 512))(img)
+    images = list(crop_region(img))
+    color_info = {}
+    for i, img in enumerate(images, 1):
+        color = colorgram.extract(img, 5)
+        color_info[str(i)] = {
+            "%d"%j: get_rgb(color[j]) for j in range(1, 5)
+        }
+    return color_info 
 
 def make_colorgram_tensor(color_info, width=512, height=512):
     colors = list(color_info.values())
