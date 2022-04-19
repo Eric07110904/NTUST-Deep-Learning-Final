@@ -3,6 +3,7 @@ import numpy as np
 from torchvision import transforms 
 from PIL import Image 
 import colorgram 
+from utils.preprocess import scale 
 
 def get_rgb(colorgram_result):
     """
@@ -63,4 +64,5 @@ def make_colorgram_tensor(color_info, width=512, height=512):
             tensor[green, index:index + region] *= g
             tensor[blue, index:index + region] *= b 
     tensor = torch.from_numpy(tensor.copy())
-    return tensor 
+    
+    return scale(tensor/255.0) 

@@ -1,7 +1,8 @@
 import torch 
 import torch.nn as nn 
 from torchsummary import summary 
-from attention import AttentionBlock
+#from attention import AttentionBlock
+from model.attention import AttentionBlock
 
 class DeepUNet(nn.Module):
     def __init__(self, bias=True):
@@ -162,13 +163,13 @@ class DeepUNetUpSample(nn.Module):
         if self.dropout is not None:
             feature = self.dropout(feature)
         return feature 
-model = DeepUNet(bias=True).to("cuda")
+# model = DeepUNet(bias=True).to("cuda")
 
 
-sketch = torch.ones((1, 3, 512, 512)).to("cuda")
-colors = torch.ones((1, 12, 512, 512)).to("cuda")
+# sketch = torch.ones((1, 3, 512, 512)).to("cuda")
+# colors = torch.ones((1, 12, 512, 512)).to("cuda")
 
 
 
-res = model(sketch, colors)
-print(res.shape)
+# res = model(sketch, colors)
+# print(res.shape)
